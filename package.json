@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/erinspice/quasix-getopt",
   "devDependencies": {
+    "async": "^2.0.1",
     "glob": "^7.1.0",
     "standard": "^8.1.0",
     "tap-spec": "^4.1.1",

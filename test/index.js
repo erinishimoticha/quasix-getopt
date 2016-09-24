@@ -1,30 +1,47 @@
 'use strict'
 
-// const cp = require('child_process')
+const cp = require('child_process')
 const glob = require('glob')
-const path = require('path')
-const basename = path.basename(__dirname)
+const async = require('async')
 
-const options = {
+const globOpts = {
   ignore: 'node_modules/**',
   cwd: './test'
 }
-glob('**/*.test.js', options, loadTests)
+glob('**/*.test.js', globOpts, loadTests)
 
 function loadTests (err, files) {
-  if (err) {
-    console.error(err)
-    process.exit(1)
-  }
+  if (err) exit(err)
+
+  // Run up to four tests at a time
+  const queue = async.queue((test, next) => {
+    test.args.unshift(`${globOpts.cwd}/${test.file}`)
+
+    const proc = cp.spawn(test.cmd, test.args)
+    proc.stderr.pipe(process.stderr)
+    proc.stdout.pipe(process.stdout)
+    proc.on('error', err => next(err))
+    proc.on('exit', code => () => next())
+    proc.on('close', code => () => next())
+  }, 4)
 
   files.forEach(file => {
-    file = file.replace(new RegExp('.*/' + basename + '/'), './')
+    let test
 
     try {
-      require(`./${file}`)
+      test = require(`./${file}`)
     } catch (err) {
-      console.error(err)
-      process.exit(1)
+      exit(err)
     }
+
+    test.file = file
+    queue.push(test)
   })
+
+  queue.drain = () => exit()
+}
+
+function exit (err) {
+  if (err) console.error(err)
+  process.exit(err ? 1 : 0)
 }
