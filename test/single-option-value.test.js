@@ -3,9 +3,9 @@
 const quasix = require('../index')
 const test = require('tape')
 
-module.exports.name = 'single option boolean'
+module.exports.name = 'single option value'
 module.exports.cmd = 'node'
-module.exports.args = ['-p']
+module.exports.args = ['-o', 'outfile.dat']
 module.exports.run = run
 
 function run (t) {
@@ -14,7 +14,7 @@ function run (t) {
 
   const options = quasix.parse()
   t.equal(Object.keys(options).length, 1, 'Options contains 1 key')
-  t.equal(options.p, true, 'p option is true')
+  t.equal(options.o, 'outfile.dat', 'option value is outfile.dat')
   t.end()
 }
 
