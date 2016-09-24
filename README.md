@@ -10,11 +10,11 @@ specification. This module parses the following simple POSIX-like
 constructs.
 
 ## Examples
-single-dash arguments: -a
-single-dash combined arguments: -zxvpf
-single-dash arguments with value: -o data.txt
-double-dash arguments: --verbose
-double-dash arguments with value: --outfile data.txt
+* single-dash arguments: -a
+* single-dash combined arguments: -zxvpf
+* single-dash arguments with value: -o data.txt
+* double-dash arguments: --verbose
+* double-dash arguments with value: --outfile data.txt
 
 ## Use
 Parse process.argv and return an object with the command line
