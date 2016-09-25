@@ -12,7 +12,10 @@ module.exports = new Test({
 
 function run (t) {
   const options = quasix.parse()
+  const extras = options._extras
+  delete options._extras
   t.equal(Object.keys(options).length, 10, 'Options contains 10 keys')
+  t.equal(Object.keys(extras).length, 0, 'Extras contains 0 entries')
   t.equal(options.outfile, 'outfile.dat', 'outfile value is outfile.dat')
   t.equal(options.p, true, 'p value is true')
   t.equal(options['1'], true, '1 value is true')

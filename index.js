@@ -22,10 +22,10 @@ module.exports.parse = parse
  * and returns all values passed to the command.
  */
 function parse () {
-  const options = {}
+  const options = { _extras: [] }
   const order = []
 
-  process.argv.forEach(str => {
+  process.argv.slice(2, process.argv.length).forEach(str => {
     let a
 
     if (str.substr(0, 2) === '--') {
@@ -51,10 +51,15 @@ function parse () {
     } else {
       const prev = last(order)
       // e.g., -o /home/erin/data.txt
-      if (options[prev] === true) {
+      if (prev && options[prev] === true) {
         options[prev] = str
-      } else {
+        // indicate last thing we processed was not an option name.
+        order.push(false)
+      } else if (!prev) {
         // this is a bare keyword not associated with a name.
+        options._extras.push(str)
+        // indicate last thing we processed was not an option name.
+        order.push(false)
       }
     }
   })
