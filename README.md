@@ -33,6 +33,19 @@ constructs.
     }
 ```
 
+* single-dash combined arguments with a bare value following: `-zxvpf blah.tgz`
+
+```
+    {
+        z: true,
+        x: true,
+        v: true,
+        p: true,
+        f: true,
+        _extras: ['blah.tgz']
+    }
+```
+
 * single-dash arguments with value: `-o data.txt`
 
 ```

@@ -46,7 +46,12 @@ function parse () {
       // e.g., -a or -zxvpf
       a.split('').forEach(flag => {
         options[flag] = true
-        order.push(flag)
+        if (a.length > 2) {
+          // indicate last thing we processed doesn't expect a value.
+          order.push(false)
+        } else {
+          order.push(flag)
+        }
       })
     } else {
       const prev = last(order)
