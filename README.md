@@ -1,3 +1,6 @@
+# Tests
+[![Build Status](https://travis-ci.org/erinspice/quasix-getopt.svg?branch=master)](https://travis-ci.org/erinspice/quasix-getopt)
+
 # Install
 npm install quasix-getopt
 
