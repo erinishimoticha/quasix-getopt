@@ -4,7 +4,7 @@ const quasix = require('../index')
 const Test = require('./test')
 
 module.exports = new Test({
-  name: 'single dash boolean',
+  name: 'single dash combined with bare keywords',
   cmd: 'node',
   args: ['-zxvpf', 'blah.tgz', 'another.tgz'],
   run: run
