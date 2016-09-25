@@ -74,6 +74,11 @@ function testHandler (test, spec, next) {
     data = data || []
     log.debug(`[${trace}] ${test.file} is done. ${data.length} lines of data.`)
     data.forEach(line => spec.stdin.write(line))
+    spec.stdin.on('finish', () => {
+      // whyyyyy
+      setTimeout(() => spec.stdout.unpipe(process.stdout), 500)
+    })
+    spec.stdin.end()
     next()
   })
 }
