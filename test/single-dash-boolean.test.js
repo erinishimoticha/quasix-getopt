@@ -4,7 +4,7 @@ const quasix = require('../index')
 const Test = require('./test')
 
 module.exports = new Test({
-  name: 'single option boolean',
+  name: 'single dash boolean',
   cmd: 'node',
   args: ['-p'],
   run: run

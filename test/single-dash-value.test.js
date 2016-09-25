@@ -4,7 +4,7 @@ const quasix = require('../index')
 const Test = require('./test')
 
 module.exports = new Test({
-  name: 'single option value',
+  name: 'single dash value',
   cmd: 'node',
   args: ['-o', 'outfile.dat'],
   run: run
