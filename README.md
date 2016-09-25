@@ -54,6 +54,14 @@ constructs.
     }
 ```
 
+* single-dash arguments with value indicated with equal `=`: `-o=data.txt`
+
+```
+    {
+        o: data.txt
+    }
+```
+
 * double-dash arguments: --verbose
 
 ```
@@ -63,6 +71,14 @@ constructs.
 ```
 
 * double-dash arguments with value: `--outfile data.txt`
+
+```
+    {
+        outfile: data.txt
+    }
+```
+
+* double-dash arguments with value indicated with equal `=`: `--outfile=data.txt`
 
 ```
     {

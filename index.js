@@ -27,11 +27,12 @@ function parse () {
 
   process.argv.slice(2, process.argv.length).forEach(str => {
     let a
+    let pieces
 
     if (str.substr(0, 2) === '--') {
       a = str.substr(2, str.length)
 
-      let pieces = a.split('=')
+      pieces = a.split('=')
       if (pieces[1]) {
         // e.g., --filename=/home/erin/data.txt
         options[pieces[0]] = pieces[1]
@@ -43,6 +44,13 @@ function parse () {
       }
     } else if (str.substr(0, 1) === '-') {
       a = str.substr(1, str.length)
+
+      pieces = a.split('=')
+      if (pieces[1]) {
+        options[pieces[0]] = pieces[1]
+        return
+      }
+
       // e.g., -a or -zxvpf
       a.split('').forEach(flag => {
         options[flag] = true
