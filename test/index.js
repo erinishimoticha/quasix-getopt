@@ -27,7 +27,7 @@ function loadTests (err, files) {
   log.debug('Creating queue')
 
   const queue = async.queue((test, next) => {
-    test.res = []
+    test.output = []
 
     log.debug(`Spawning ${test.cmd} ${test.args.join(' ')}`)
     const proc = cp.spawn(test.cmd, test.args)
@@ -37,7 +37,7 @@ function loadTests (err, files) {
 
     spec.stdout.pipe(process.stdout)
     proc.stderr.pipe(process.stderr)
-    proc.stdout.on('data', data => test.res.push(data.toString()))
+    proc.stdout.on('data', data => test.output.push(data.toString()))
 
     proc.on('exit', exitHandler)
     proc.on('close', exitHandler)
@@ -45,7 +45,7 @@ function loadTests (err, files) {
     function exitHandler (_code) {
       if (_code !== 0) code = _code
 
-      next(test.res, 'close')
+      next(test.output, 'close')
     }
     proc.on('error', error => {
       if (error) code = 1
@@ -54,18 +54,16 @@ function loadTests (err, files) {
   }, 1)
 
   log.debug('Scheduling:')
-  tests.forEach(test => {
-    test.args.unshift(`./test/${test.file}`)
-    log.debug(` * ${test.file}`)
-    queue.push(test)
+  tests.forEach(params => {
+    params.args.unshift(`./test/${params.file}`)
+    log.debug(` * ${params.file}`)
+    queue.push(new TestProcess(params))
   })
   log.debug('\n')
 
   queue.drain = () => {
     log.debug('\nFinishing up last task')
-    setTimeout(() => {
-      process.exit(code)
-    }, 500)
+    setTimeout(() => process.exit(code), 50)
   }
 }
 
@@ -81,4 +79,13 @@ function testHandler (test, spec, next) {
     spec.stdin.end()
     next()
   })
+}
+
+class TestProcess {
+  constructor (params) {
+    this.args = params.args
+    this.name = params.name
+    this.cmd = params.cmd
+    this.output = []
+  }
 }
