@@ -24,7 +24,10 @@ class Test extends EventEmitter {
 
     tapeTest(this.name, t => {
       const liveArgs = process.argv.slice(2, process.argv.length)
-      t.deepEquals(liveArgs, this.args, 'We got passed the right args.')
+      t.equals(liveArgs.length, this.args.length, 'Arg arrays are the same size')
+      this.args.forEach(arg => {
+        t.equals(liveArgs.indexOf(arg) > -1, true, 'Test got passed the right args.')
+      })
 
       const end = t.end
       t.end = function (err) {
