@@ -69,7 +69,7 @@ function parse () {
         options[prev] = str
         // indicate last thing we processed was not an option name.
         order.push(false)
-      } else if (!prev) {
+      } else {
         // this is a bare keyword not associated with a name.
         options._extras.push(str)
         // indicate last thing we processed was not an option name.
