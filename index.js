@@ -48,6 +48,7 @@ function parse () {
       pieces = a.split('=')
       if (pieces[1]) {
         options[pieces[0]] = pieces[1]
+        order.push(false)
         return
       }
 
