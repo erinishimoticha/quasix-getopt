@@ -13,8 +13,11 @@ module.exports.parse = parse
  * single-dash arguments: -a
  * single-dash combined arguments: -zxvpf
  * single-dash arguments with value: -o data.txt
+ * single-dash arguments with value delimited by = : -o=data.txt
  * double-dash arguments: --verbose
  * double-dash arguments with value: --outfile data.txt
+ * double-dash arguments with value delimited by = : --outfile=data.txt
+ * bare values: cat file.pdf out new.pdf
  *
  * Parse process.argv and return an object with the command line
  * arguments in it. This module does not enforce any required options
