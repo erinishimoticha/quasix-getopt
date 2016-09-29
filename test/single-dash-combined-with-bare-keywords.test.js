@@ -2,11 +2,14 @@
 
 const quasix = require('../index')
 const Test = require('./test')
+const path = require('path')
+const file = path.join(path.basename(__dirname), path.basename(__filename))
 
 module.exports = new Test({
   name: 'single dash combined with bare keywords',
   cmd: 'node',
   args: ['-zxvpf', 'blah.tgz', 'another.tgz'],
+  file: file,
   run: run
 })
 

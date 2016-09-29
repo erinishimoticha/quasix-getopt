@@ -2,11 +2,14 @@
 
 const quasix = require('../index')
 const Test = require('./test')
+const path = require('path')
+const file = path.join(path.basename(__dirname), path.basename(__filename))
 
 module.exports = new Test({
   name: 'mixed options',
   cmd: 'node',
   args: ['-p', '-1', '-jsdlkkk', '--outfile', 'outfile.dat', '-e', '--test'],
+  file: file,
   run: run
 })
 

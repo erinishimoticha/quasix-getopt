@@ -7,9 +7,11 @@ class Test extends EventEmitter {
   constructor (params) {
     super()
     this.name = params.name
-    this.cmd = params.cmd
     this.args = params.args
+    this.cmd = params.cmd
+    this.file = params.file
     this._run = params.run
+    this.fullCmd = `${this.cmd} ${this.file} ${this.args.join(' ')}`
 
     if (
       process.argv[1].indexOf('test/index.js') === -1 &&

@@ -2,11 +2,14 @@
 
 const quasix = require('../index')
 const Test = require('./test')
+const path = require('path')
+const file = path.join(path.basename(__dirname), path.basename(__filename))
 
 module.exports = new Test({
   name: 'repeated non-option or value strings',
   cmd: 'node',
   args: ['--outfile', 'outfile.dat', 'foo', 'bar'],
+  file: file,
   run: run
 })
 

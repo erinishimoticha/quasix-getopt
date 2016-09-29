@@ -73,6 +73,7 @@ function testHandler (test, spec, next) {
   return lodash.once((data, trace) => {
     data = data || []
     log.debug(`[${trace}] ${test.file} is done. ${data.length} lines of data.`)
+    spec.stdin.write(`${test.fullCmd}\n`)
     data.forEach(line => spec.stdin.write(line))
     spec.stdin.on('finish', () => {
       // whyyyyy

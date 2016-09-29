@@ -2,6 +2,8 @@
 
 const quasix = require('../index')
 const Test = require('./test')
+const path = require('path')
+const file = path.join(path.basename(__dirname), path.basename(__filename))
 
 const args = [
   // key/value
@@ -25,6 +27,7 @@ module.exports = new Test({
   name: 'arguments with randomly generated order',
   cmd: 'node',
   args: flatten(shuffle(args, extras)),
+  file: file,
   run: run
 })
 
